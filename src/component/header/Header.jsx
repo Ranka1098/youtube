@@ -8,9 +8,16 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { logo } from "../../assets";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import "./Header.css";
+import { useDispatch } from "react-redux";
+import { isMenuToggle } from "../../store/menuSlice";
 
 const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
+  const dispatch = useDispatch();
+
+  const handleToggle = () => {
+    dispatch(isMenuToggle());
+  };
   return (
     <>
       <div className="flex gap-10 lg:gap-10 justify-between my-2 mx-2">
@@ -20,7 +27,10 @@ const Header = () => {
             showSearch ? "hidden" : "flex"
           }`}
         >
-          <button className="w-10 h-10 flex items-center justify-center rounded-full  hover:bg-gray-200 transition ease-out duration-200">
+          <button
+            onClick={handleToggle}
+            className="w-10 h-10 flex items-center justify-center rounded-full  hover:bg-gray-200 transition ease-out duration-200"
+          >
             <LuMenu size={30} />
           </button>
           <a href="/">

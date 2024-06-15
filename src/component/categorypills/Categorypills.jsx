@@ -1,35 +1,19 @@
+import { useState } from "react";
+import { button } from "../../utils/data";
 const Categorypills = () => {
-  const button = [
-    "app",
-    "game",
-    "cricket",
-    "coading",
-    "music",
-    "Songs",
-    "mobile",
-    "sells",
-    "show",
-    "javascript",
-    "logic",
-    "maths",
-    "rhyms",
-    "south ",
-    "old",
-    "saregama",
-    "KBC",
-    "jokes",
-    "Study",
-    "Caa",
-    "Upsc",
-    "preprations",
-  ];
+  const [activebtn, setActiveBtn] = useState();
   return (
-    <div className="overflow-x-hidden relative">
-      <div className="flex flex-nowrap">
+    <div >
+      <div className="flex overflow-x-scroll">
         {button.map((btn) => (
           <button
+            onClick={() => setActiveBtn(btn)}
             key={btn}
-            className="px-2 py-1 bg-gray-200 rounded-md mx-1 mb-2"
+            className={`px-2 py-1 bg-gray-200 rounded-md mx-1 mb-2 ${
+              activebtn === btn
+                ? "bg-black text-white"
+                : "bg-gray-200 text-black"
+            }`}
           >
             {btn}
           </button>
