@@ -10,7 +10,9 @@ const App = () => {
   return (
     <div>
       <Provider store={store}>
-        <Header />
+        <div>
+          <Header />
+        </div>
         <div className=" flex gap-1 overflow-hidden ">
           <div>
             <SideBar />

@@ -1,4 +1,5 @@
 import { FaAngleRight } from "react-icons/fa6";
+import"./large.css"
 import {
   exploreItems,
   menuItems,
@@ -9,7 +10,7 @@ import {
 
 const LargeSideBar = () => {
   return (
-    <div className="w-[13rem] flex  flex-col gap-3 p-2 overflow-x-hidden overflow-y-scroll h-[90vh] left-0 z-10">
+    <div className="w-[13rem] flex  flex-col gap-3 p-2 overflow-x-hidden overflow-y-scroll h-[90vh] left-0 z-10 hide-scroll">
       {menuItems.map((item) => (
         <button key={item.id} className="flex   gap-3">
           {item.icon}

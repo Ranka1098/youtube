@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const SideBar = () => {
   const toggleSidebar = useSelector((store) => store.menu.toggleMenu);
-  return <div>{toggleSidebar ? <SmallSideBar /> : <LargeSideBar />}</div>;
+  return <div className="hidden md:block lg:block">{toggleSidebar ? <SmallSideBar /> : <LargeSideBar />}</div>;
 };
 
 export default SideBar;

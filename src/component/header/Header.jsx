@@ -19,7 +19,7 @@ const Header = () => {
     dispatch(isMenuToggle());
   };
   return (
-    <>
+    <div className="">
       <div className="flex gap-10 lg:gap-10 justify-between my-2 mx-2">
         {/* left */}
         <div
@@ -96,7 +96,7 @@ const Header = () => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
