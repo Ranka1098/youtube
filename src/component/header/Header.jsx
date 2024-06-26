@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LuMenu } from "react-icons/lu";
 import { IoIosSearch } from "react-icons/io";
 import { FaMicrophone } from "react-icons/fa";
@@ -8,18 +8,49 @@ import { FaRegCircleUser } from "react-icons/fa6";
 import { logo } from "../../assets";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import "./Header.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { isMenuToggle } from "../../store/menuSlice";
+import { youtube_Search_Api } from "../../utils/Apidata";
+import { cacheResults } from "../../store/searchSlice";
 
 const Header = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  // show search state used for responsiveness
   const [showSearch, setShowSearch] = useState(false);
-  const dispatch = useDispatch();
+  // store api suggestion result
+  const [suggestion, setSuggestion] = useState([]);
 
+  const dispatch = useDispatch();
+  const searchcache = useSelector((store) => store.search);
   const handleToggle = () => {
     dispatch(isMenuToggle());
   };
+
+  const videoSuggestion = async () => {
+    const resp = await fetch(youtube_Search_Api + searchQuery);
+    const result = await resp.json();
+    setSuggestion(result[1]);
+    // update in my cache
+    dispatch(cacheResults({ [searchQuery]: result[1] }));
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchcache[searchQuery]) {
+        setSuggestion(searchcache[searchQuery]);
+      } else {
+        {
+          videoSuggestion();
+        }
+      }
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [searchQuery]);
   return (
-    <div className="">
+    <div className="   top-0 left-0 z-10 bg-white mt-2 ">
       <div className="flex gap-10 lg:gap-10 justify-between my-2 mx-2">
         {/* left */}
         <div
@@ -34,7 +65,7 @@ const Header = () => {
             <LuMenu size={30} />
           </button>
           <a href="/">
-            <img src={logo} alt="logo" className="h-5" />
+            <img src={logo} alt="logo" className="h-5 cursor-pointer" />
           </a>
         </div>
         {/* ---------------------------------------------------------------------------------------- */}
@@ -54,8 +85,21 @@ const Header = () => {
             </button>
           )}
 
-          <div className={`flex flex-grow max-w-[600px] `}>
+          <div className={`flex flex-grow max-w-[600px] relative`}>
+            {searchQuery ? (
+              <div className="w-[530px] absolute top-11 px-2 bg-white py-3 rounded-md border">
+                <ul>
+                  {suggestion.map((s) => (
+                    <li className="px-4">{s} </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              ""
+            )}
             <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               type="search"
               placeholder="Search..."
               className="w-full px-4 py-1  rounded-l-full border border-gray-400 focus:outline-none"

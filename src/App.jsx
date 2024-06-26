@@ -1,32 +1,28 @@
 import React from "react";
 import Header from "./component/header/Header";
-import Categorypills from "./component/categorypills/Categorypills";
-import SideBar from "./component/Sidebar/SideBar";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import VideoContainer from "./component/videoContainer/VideoContainer";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Body from "./component/body/Body";
+import WatchPage from "./component/watchpage/WatchPage";
+
+const appRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <Body />,
+  },
+  {
+    path: "/watch/:id",
+    element: <WatchPage />,
+  },
+]);
 
 const App = () => {
   return (
     <div>
       <Provider store={store}>
-        <div>
-          <Header />
-        </div>
-        <div className=" flex gap-1 overflow-hidden ">
-          <div>
-            <SideBar />
-          </div>
-          {/* -------------------- */}
-          <div className="overflow-x-scroll ml-2 mr-3">
-            <div>
-              <Categorypills />
-            </div>
-            <div>
-              <VideoContainer />
-            </div>
-          </div>
-        </div>
+        <Header  />
+        <RouterProvider router={appRouter} />
       </Provider>
     </div>
   );
