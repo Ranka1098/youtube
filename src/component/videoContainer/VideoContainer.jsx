@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { video_URL } from "../../utils/Apidata";
+import { YTB_Video_URL } from "../../utils/Apidata";
 import VideoCard from "./VideoCard";
 import "./videocontainer.css";
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ const VideoContainer = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const resp = await fetch(video_URL);
+        const resp = await fetch(YTB_Video_URL);
         const result = await resp.json();
         setVideos(result.items);
       } catch (err) {

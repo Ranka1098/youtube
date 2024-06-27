@@ -10,7 +10,7 @@ import { BiLeftArrowAlt } from "react-icons/bi";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { isMenuToggle } from "../../store/menuSlice";
-import { youtube_Search_Api } from "../../utils/Apidata";
+import { Goggle_Search_Api } from "../../utils/Apidata";
 import { cacheResults } from "../../store/searchSlice";
 
 const Header = () => {
@@ -27,7 +27,7 @@ const Header = () => {
   };
 
   const videoSuggestion = async () => {
-    const resp = await fetch(youtube_Search_Api + searchQuery);
+    const resp = await fetch(Goggle_Search_Api + searchQuery);
     const result = await resp.json();
     setSuggestion(result[1]);
     // update in my cache

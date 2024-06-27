@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { button } from "../../utils/data";
-import { video_key} from "../../utils/Apidata"
 import "./category.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { SiJasmine } from "react-icons/si";
+import { useDispatch } from "react-redux";
+import { setHomeVideo } from "../../store/categorySlice";
 const Categorypills = () => {
+  const dispatch = useDispatch();
   const [activebtn, setActiveBtn] = useState("");
   const scrollRef = useRef(null);
   const handleleft = () => {
@@ -18,25 +20,16 @@ const Categorypills = () => {
     }
   };
 
-  useEffect(() => {
-    const searchData = async (btn) => {
-      try {
-        const resp = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${btn}&type=video&key=${video_key}`
-        );
-        const result = await resp.json();
-      } catch (error) {
-        console.log(err);
-      }
-    };
-    searchData();
-  }, []);
   const videoTag = (btn) => {
     if (activebtn != btn) {
       setActiveBtn(btn);
     }
   };
-  console.log(activebtn);
+
+  const fetchingYoutubeVuideo = async()=>{
+    const resp =await fetch("")
+  }
+
   return (
     <div className="flex items-center mt-1 ">
       <button
@@ -47,14 +40,13 @@ const Categorypills = () => {
       </button>
 
       <div ref={scrollRef} className="flex overflow-x-scroll hide-scroll mx-2">
+        {/* ---------------------------------------------------------------------------- */}
         {button.map((btn) => (
           <button
             onClick={() => videoTag(btn)}
             key={btn}
             className={`px-2 py-1 bg-gray-200 rounded-md mx-2 ${
-              activebtn === btn
-                ? "bg-black/90 text-white"
-                : "bg-gray-200 text-black"
+              activebtn === btn ? "bg-black text-white" : "  text-black"
             }`}
           >
             {btn}

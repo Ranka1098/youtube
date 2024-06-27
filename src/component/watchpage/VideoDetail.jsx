@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { video_key } from "../../utils/Apidata";
+import { Video_Api_Key } from "../../utils/Apidata";
 import { MdOutlineThumbDownAlt, MdOutlineThumbUpAlt } from "react-icons/md";
 import { RiShareForwardLine } from "react-icons/ri";
 import { BsSave } from "react-icons/bs";
@@ -7,12 +7,11 @@ import Description from "./Description";
 
 const VideoDetail = ({ id }) => {
   const [videoDataById, setVideoDataById] = useState(null);
-  const link = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${video_key}`;
+  const link = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${Video_Api_Key}`;
 
   const getvideo = async () => {
     const resp = await fetch(link);
     const result = await resp.json();
-    console.log("video id result", result?.items);
     setVideoDataById(result?.items[0]);
   };
   useEffect(() => {
