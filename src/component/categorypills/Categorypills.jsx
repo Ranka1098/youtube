@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { button } from "../../utils/data";
 import "./category.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
-import { SiJasmine } from "react-icons/si";
-import { useDispatch } from "react-redux";
-import { setHomeVideo } from "../../store/categorySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategory } from "../../store/categorySlice";
 const Categorypills = () => {
   const dispatch = useDispatch();
+
   const [activebtn, setActiveBtn] = useState("");
   const scrollRef = useRef(null);
   const handleleft = () => {
@@ -23,12 +23,9 @@ const Categorypills = () => {
   const videoTag = (btn) => {
     if (activebtn != btn) {
       setActiveBtn(btn);
+      dispatch(setCategory(btn));
     }
   };
-
-  const fetchingYoutubeVuideo = async()=>{
-    const resp =await fetch("")
-  }
 
   return (
     <div className="flex items-center mt-1 ">
@@ -46,7 +43,7 @@ const Categorypills = () => {
             onClick={() => videoTag(btn)}
             key={btn}
             className={`px-2 py-1 bg-gray-200 rounded-md mx-2 ${
-              activebtn === btn ? "bg-black text-white" : "  text-black"
+              activebtn === btn ? "text-white bg-black/100 " : "  text-black"
             }`}
           >
             {btn}
