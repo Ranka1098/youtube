@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import VideoDetail from "./VideoDetail";
-import Comment from "./Comment"
+import Comment from "./Comment";
+import ReccomandedVdeo from "../ReccomandedVdeo";
 const WatchPage = () => {
   const { id } = useParams();
 
   return (
-    <>
+    <div className="flex ">
       {/* overlay */}
       <div className="mx-10 my-5  ">
         <iframe
@@ -21,11 +22,13 @@ const WatchPage = () => {
         ></iframe>
         <div>
           <VideoDetail id={id} />
-          <Comment id={id}/>
+          <Comment id={id} />
         </div>
-
       </div>
-    </>
+      <div>
+       <ReccomandedVdeo />
+      </div>
+    </div>
   );
 };
 
