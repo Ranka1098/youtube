@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { button } from "../../utils/data";
 import "./category.css";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setCategory } from "../../store/categorySlice";
 const Categorypills = () => {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const Categorypills = () => {
             onClick={() => videoTag(btn)}
             key={btn}
             className={`px-2 py-1 bg-gray-200 rounded-md mx-2 ${
-              activebtn === btn ? "text-white bg-black/100 " : "  text-black"
+              activebtn === btn ? "text-white bg-black/95 " : "  text-black"
             }`}
           >
             {btn}

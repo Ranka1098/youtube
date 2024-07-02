@@ -1,15 +1,14 @@
-import React, { useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import VideoDetail from "./VideoDetail";
-import Comment from "./Comment";
-import ReccomandedVdeo from "../ReccomandedVdeo";
+import Comments from "../Comment.s/Comments";
+import RecammandedVideo from "../recomanded/RecammandedVideo";
 const WatchPage = () => {
   const { id } = useParams();
 
   return (
-    <div className="flex ">
+    <div className="flex  justify-between gap-5 ">
       {/* overlay */}
-      <div className="mx-10 my-5  ">
+      <div className="m-5  ">
         <iframe
           className=" rounded-md"
           width="800"
@@ -22,11 +21,11 @@ const WatchPage = () => {
         ></iframe>
         <div>
           <VideoDetail id={id} />
-          <Comment id={id} />
+          <Comments id={id} />
         </div>
       </div>
-      <div>
-       <ReccomandedVdeo />
+      <div className="mt-5">
+        <RecammandedVideo />
       </div>
     </div>
   );

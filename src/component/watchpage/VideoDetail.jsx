@@ -6,7 +6,7 @@ import { BsSave } from "react-icons/bs";
 import Description from "./Description";
 
 const VideoDetail = ({ id }) => {
-  const [videoDataById, setVideoDataById] = useState(null);
+  const [videoDataById, setVideoDataById] = useState([]);
   const link = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${Video_Api_Key}`;
 
   const getvideo = async () => {

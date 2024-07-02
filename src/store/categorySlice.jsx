@@ -5,6 +5,7 @@ const categorySlice = createSlice({
   initialState: {
     video: [],
     category: "all",
+    commentData: [],
   },
   reducers: {
     setHomeVideo: (state, action) => {
@@ -13,9 +14,12 @@ const categorySlice = createSlice({
     setCategory: (state, action) => {
       state.category = action.payload;
     },
+    setComment: (state, action) => {
+      state.commentData = action.payload;
+    },
   },
 });
 
-export const { setHomeVideo, setCategory } = categorySlice.actions;
+export const { setHomeVideo, setCategory, setComment } = categorySlice.actions;
 
 export default categorySlice.reducer;

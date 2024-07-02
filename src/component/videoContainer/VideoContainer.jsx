@@ -21,7 +21,6 @@ const VideoContainer = () => {
       `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${category}&type=video&key=${Video_Api_Key}`
     );
     const result = await resp.json();
-    console.log(result.items);
     dispatch(setHomeVideo(result?.items));
   };
 
