@@ -11,6 +11,11 @@ const appRouter = createBrowserRouter([
     path: "/",
     element: <Body />,
   },
+
+  // {
+  //   path: "/search/",
+  //   element: <Search />,
+  // },
   {
     path: "/watch/:id",
     element: <WatchPage />,
@@ -21,7 +26,7 @@ const App = () => {
   return (
     <div>
       <Provider store={store}>
-        <Header  />
+        <Header />
         <RouterProvider router={appRouter} />
       </Provider>
     </div>

@@ -3,3 +3,6 @@ export const YTB_Video_URL = `https://youtube.googleapis.com/youtube/v3/videos?p
 export const Goggle_Search_Api =
   "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=";
 export const Video_Comment_Api = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=_VB39Jo8mAQ&key=${Video_Api_Key}`;
+
+const Youtube_Search_Api =
+  "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=YOURKEYWORD&type=video&key=YOURAPIKEY";

@@ -8,7 +8,7 @@ const RecamandedSingleVideo = ({ video }) => {
       {/* Thumbnail */}
       <div className="w-[320px] h-[170px]">
         <img
-          src={thumbnails?.standard?.url || thumbnails?.default?.url}
+          src={thumbnails?.medium?.url || thumbnails?.default?.url}
           alt={title}
           className="w-full h-full object-cover"
         />

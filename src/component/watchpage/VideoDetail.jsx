@@ -7,8 +7,20 @@ import Description from "./Description";
 
 const VideoDetail = ({ id }) => {
   const [videoDataById, setVideoDataById] = useState([]);
+  const [issubscribe, setIsSubscribe] = useState(false);
   const link = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${Video_Api_Key}`;
 
+  const valueConverter = (value) => {
+    if (value >= 1000000) {
+      return Math.floor(value / 1000000) + "M";
+    } else {
+      if (value >= 1000) {
+        return Math.floor(value / 1000) + "K";
+      } else {
+        return value;
+      }
+    }
+  };
   const getvideo = async () => {
     const resp = await fetch(link);
     const result = await resp.json();
@@ -19,7 +31,7 @@ const VideoDetail = ({ id }) => {
   }, [id]);
   // extract data from video details
   const { snippet, statistics } = videoDataById || {};
-  const { channelTitle, description ,publishedAt, localized } = snippet || {};
+  const { channelTitle, description, publishedAt, localized } = snippet || {};
   const { likeCount, viewCount } = statistics || {};
   const { title } = localized || {};
   return (
@@ -31,7 +43,7 @@ const VideoDetail = ({ id }) => {
         {/* views  */}
         <div className="flex gap-2">
           <p className="text-gray-500 text-lg">
-            {viewCount} views<span> {publishedAt}</span>
+            {valueConverter(viewCount)} views<span> {publishedAt}</span>
           </p>
         </div>
         {/* logo */}
@@ -77,8 +89,15 @@ const VideoDetail = ({ id }) => {
           </div>
         </div>
         {/* subscribe button */}
-        <button className="px-2 py-1 bg-[#FF0000] text-white border-[1px] rounded-full">
-          Subscribe
+        <button
+          onClick={() => {
+            setIsSubscribe(!issubscribe);
+          }}
+          className={`px-2 py-1 border-[1px] rounded-full ${
+            issubscribe ? "bg-[#ff0000] text-white" : "bg-gray-300 text-black "
+          }`}
+        >
+          {issubscribe ? <span>Subscribe</span> : <span>Subscribed</span>}
         </button>
       </div>
       <Description description={description} />

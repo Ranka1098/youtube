@@ -10,47 +10,42 @@ import { BiLeftArrowAlt } from "react-icons/bi";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 import { isMenuToggle } from "../../store/menuSlice";
-import { Goggle_Search_Api } from "../../utils/Apidata";
-import { cacheResults } from "../../store/searchSlice";
-
+import { Video_Api_Key } from "../../utils/Apidata";
+import {
+  clearSearchResults,
+  setSearchResults,
+} from "../../store/categorySlice";
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   // show search state used for responsiveness
   const [showSearch, setShowSearch] = useState(false);
-  // store api suggestion result
-  const [suggestion, setSuggestion] = useState([]);
 
   const dispatch = useDispatch();
-  const searchcache = useSelector((store) => store.search);
   const handleToggle = () => {
     dispatch(isMenuToggle());
   };
 
-  const videoSuggestion = async () => {
-    const resp = await fetch(Goggle_Search_Api + searchQuery);
+  const searchData = async () => {
+    const resp = await fetch(
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${searchQuery}&type=video&key=${Video_Api_Key}`
+    );
     const result = await resp.json();
-    setSuggestion(result[1]);
-    // update in my cache
-    dispatch(cacheResults({ [searchQuery]: result[1] }));
+    dispatch(setSearchResults(result.items));
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (searchcache[searchQuery]) {
-        setSuggestion(searchcache[searchQuery]);
-      } else {
-        {
-          videoSuggestion();
-        }
-      }
-    }, 200);
+  const handleSeach = (e) => {
+    e.preventDefault();
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [searchQuery]);
+    if (searchQuery.trim() !== "") {
+      searchData();
+    } else {
+      dispatch(clearSearchResults());
+    }
+    setSearchQuery("");
+  };
+
   return (
-    <div className="   top-0 left-0 z-10 bg-white mt-2 ">
+    <div className=" sticky top-0  z-1000  bg-white pt- pb-1 ">
       <div className="flex gap-10 lg:gap-10 justify-between my-2 mx-2">
         {/* left */}
         <div
@@ -86,17 +81,6 @@ const Header = () => {
           )}
 
           <div className={`flex flex-grow max-w-[600px] relative`}>
-            {searchQuery ? (
-              <div className="w-[530px] absolute top-11 px-2 bg-white py-3 rounded-md border">
-                <ul>
-                  {suggestion.map((s) => (
-                    <li className="px-4">{s} </li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              ""
-            )}
             <input
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -104,7 +88,10 @@ const Header = () => {
               placeholder="Search..."
               className="w-full px-4 py-1  rounded-l-full border border-gray-400 focus:outline-none"
             />
-            <button className="lg:w-20 w-10 h-10 flex items-center justify-center rounded-r-full flex-shrink-0 border border-gray-400 bg-gray-200 transition ease-out duration-200">
+            <button
+              onClick={handleSeach}
+              className="lg:w-20 w-10 h-10 flex items-center justify-center rounded-r-full flex-shrink-0 border border-gray-400 bg-gray-200 transition ease-out duration-200"
+            >
               <IoIosSearch size={22} />
             </button>
           </div>
