@@ -13,8 +13,10 @@ import { isMenuToggle } from "../../store/menuSlice";
 import { Video_Api_Key } from "../../utils/Apidata";
 import {
   clearSearchResults,
+  setInputSeachtext,
   setSearchResults,
 } from "../../store/categorySlice";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
   // show search state used for responsiveness
@@ -33,7 +35,7 @@ const Header = () => {
     dispatch(setSearchResults(result.items));
   };
 
-  const handleSeach = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
 
     if (searchQuery.trim() !== "") {
@@ -42,6 +44,10 @@ const Header = () => {
       dispatch(clearSearchResults());
     }
     setSearchQuery("");
+  };
+  const handleOnchange = (e) => {
+    setSearchQuery(e.target.value);
+    dispatch(setInputSeachtext(e.target.value));
   };
 
   return (
@@ -83,13 +89,13 @@ const Header = () => {
           <div className={`flex flex-grow max-w-[600px] relative`}>
             <input
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={handleOnchange}
               type="search"
               placeholder="Search..."
               className="w-full px-4 py-1  rounded-l-full border border-gray-400 focus:outline-none"
             />
             <button
-              onClick={handleSeach}
+              onClick={handleSearch}
               className="lg:w-20 w-10 h-10 flex items-center justify-center rounded-r-full flex-shrink-0 border border-gray-400 bg-gray-200 transition ease-out duration-200"
             >
               <IoIosSearch size={22} />

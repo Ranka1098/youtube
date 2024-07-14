@@ -35,7 +35,7 @@ const VideoDetail = ({ id }) => {
   const { likeCount, viewCount } = statistics || {};
   const { title } = localized || {};
   return (
-    <div className="w-[800px]">
+    <div className=" w-[28rem]  md:w-[45rem] lg:w-[50rem] ">
       <p className="text-xl font-bold mt-2">{title}</p>
       {/* ---------------------------------------------------------- */}
       {/* views and time stamp */}

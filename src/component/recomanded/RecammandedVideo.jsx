@@ -22,7 +22,7 @@ const RecammandedVideo = () => {
 
   return (
     <>
-      <div className="flex flex-col h-[80%] overflow-y-scroll gap-2">
+      <div className="flex flex-col h-[100vh]  overflow-y-scroll gap-2">
         {videos?.map((video) => {
           const videoId = video.id?.videoId || video.id;
           return (

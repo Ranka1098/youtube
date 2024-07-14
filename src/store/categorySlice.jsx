@@ -7,6 +7,7 @@ const categorySlice = createSlice({
     category: "all",
     commentData: [],
     searchResult: [],
+    InputSearchtext: "",
   },
   reducers: {
     setHomeVideo: (state, action) => {
@@ -24,6 +25,9 @@ const categorySlice = createSlice({
     clearSearchResults: (state) => {
       state.searchResult = [];
     },
+    setInputSeachtext: (state, action) => {
+      state.InputSearchtext = action.payload;
+    },
   },
 });
 
@@ -33,6 +37,7 @@ export const {
   setComment,
   setSearchResults,
   clearSearchResults,
+  setInputSeachtext,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;

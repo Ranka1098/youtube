@@ -5,17 +5,17 @@ import store from "./store/store";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Body from "./component/body/Body";
 import WatchPage from "./component/watchpage/WatchPage";
-
+import Search from "./component/search/Search"
 const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <Body />,
   },
 
-  // {
-  //   path: "/search/",
-  //   element: <Search />,
-  // },
+  {
+    path: "/search",
+    element: <Search />,
+  },
   {
     path: "/watch/:id",
     element: <WatchPage />,
